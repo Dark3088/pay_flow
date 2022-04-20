@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pay_flow/modules/login/login_page.dart';
+import 'package:pay_flow/modules/splash/splash_page.dart';
 import 'package:pay_flow/shared/themes/app_colors.dart';
+import 'package:pay_flow/shared/widgets/social_login/social_login_button.dart';
+
+import 'modules/home/home_page.dart';
 
 void main() {
  runApp(AppWidget());
