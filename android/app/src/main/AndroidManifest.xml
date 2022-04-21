@@ -4,7 +4,7 @@
         android:label="pay_flow"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.pay_flow.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:exported="true"
