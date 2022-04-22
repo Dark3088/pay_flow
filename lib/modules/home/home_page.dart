@@ -12,10 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
-  final pages = [
-    Container(color: Colors.red),
-    Container(color: Colors.blue)
-  ];
+  final pages = [Container(color: Colors.red), Container(color: Colors.blue)];
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +55,12 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 controller.setPage(0);
-                setState(() {
-
-                });
+                setState(() {});
               },
               icon: Icon(Icons.home),
               color: AppColors.primary,
             ),
             GestureDetector(
-              onTap: () {
-                print("You tapped me!");
-              },
               child: Container(
                 width: 56,
                 height: 56,
@@ -77,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(5)),
                 child: IconButton(
                   onPressed: () {
+                    Navigator.pushNamed(context, "/barcode_scanner");
 
                   },
                   icon: Icon(Icons.add_box_outlined),
@@ -87,9 +80,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 controller.setPage(1);
-                setState(() {
-
-                });
+                setState(() {});
               },
               icon: Icon(Icons.description_outlined),
               color: AppColors.body,
