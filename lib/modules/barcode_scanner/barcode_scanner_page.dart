@@ -47,7 +47,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
           RotatedBox(
             quarterTurns: 1,
             child: Scaffold(
-              backgroundColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
                 appBar: AppBar(
                   centerTitle: true,
                   backgroundColor: Colors.black,
@@ -72,14 +72,37 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                   secondaryOnTap: () {},
                 )),
           ),
+          ValueListenableBuilder<BarcodeScannerStatus>(
+            valueListenable: controller.statusNotifier,
+            builder: (_, status, __) {
+              if (status.hasError) {
+                return BottomSheetWidget(
+                  title: "Não foi possível carregar um código de barras.",
+                  subTitle: "Tente escanear novamente ou digite o código do seu boleto.",
+                  primaryLabel: "Escanear novamente",
+                  primaryOnTap: () {controller.getAvailableCameras();},
+                  secondaryLabel: "Digitar código",
+                  secondaryOnTap: () {},
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
         ],
       ),
     );
   }
+
   @override
   void initState() {
     // TODO: implement initState
     controller.getAvailableCameras();
+    controller.statusNotifier.addListener(() {
+      if (controller.status.hasBarcode){
+        Navigator.pushReplacementNamed(context, "/insert_invoices");
+      }
+    });
     super.initState();
   }
 
