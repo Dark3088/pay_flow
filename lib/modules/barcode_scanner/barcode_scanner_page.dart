@@ -38,7 +38,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
             builder: (_, status, __) {
               if (status.showCamera) {
                 return Container(
-                    child: status.cameraController!.buildPreview());
+                    child: controller.cameraController!.buildPreview());
               } else {
                 return Container();
               }
@@ -47,6 +47,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
           RotatedBox(
             quarterTurns: 1,
             child: Scaffold(
+              backgroundColor: Colors.transparent,
                 appBar: AppBar(
                   centerTitle: true,
                   backgroundColor: Colors.black,
