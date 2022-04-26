@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pay_flow/modules/insert_invoices/insert_invoices_controller.dart';
 import 'package:pay_flow/shared/themes/app_colors.dart';
 import 'package:pay_flow/shared/themes/app_text_styles.dart';
 import 'package:pay_flow/shared/widgets/buttons_set/buttons_set_label.dart';
@@ -21,6 +22,7 @@ class _InsertInvoiceState extends State<InsertInvoice> {
   final dueDateMask = MaskedTextController(mask: "00/00/0000");
 
   final barcodeInputController = TextEditingController();
+  final insertInvoiceController = InsertInvoicesController();
 
   @override
   void initState() {
@@ -40,40 +42,64 @@ class _InsertInvoiceState extends State<InsertInvoice> {
           color: AppColors.input,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 69),
-              child: Text("Preencha os dados do boleto",
-                  style: TextStyles.titleBoldHeading,
-                  textAlign: TextAlign.center),
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            InputTextWidget(
-                label: "Nome do boleto",
-                icon: FontAwesomeIcons.fileLines,
-                onChanged: (value) {}),
-            InputTextWidget(
-                label: "Vencimento",
-                editingController: dueDateMask,
-                icon: FontAwesomeIcons.circleXmark,
-                onChanged: (value) {}),
-            InputTextWidget(
-                label: "Valor",
-                editingController: moneyTextController,
-                icon: FontAwesomeIcons.dollarSign,
-                onChanged: (value) {}),
-            InputTextWidget(
-                label: "Código",
-                editingController: barcodeInputController,
-                icon: FontAwesomeIcons.barcode,
-                onChanged: (value) {}),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 69),
+                child: Text("Preencha os dados do boleto",
+                    style: TextStyles.titleBoldHeading,
+                    textAlign: TextAlign.center),
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              Form(
+                key: insertInvoiceController.formKey,
+                child: Column(
+                  children: [
+                    InputTextWidget(
+                      label: "Nome do boleto",
+                      icon: FontAwesomeIcons.fileLines,
+                      validator: insertInvoiceController.validateName,
+                      onChanged: (value) {
+                        insertInvoiceController.onChange(invoiceName: value);
+                      },
+                    ),
+                    InputTextWidget(
+                        label: "Vencimento",
+                        editingController: dueDateMask,
+                        icon: FontAwesomeIcons.circleXmark,
+                        validator: insertInvoiceController.validateDueDate,
+                        onChanged: (value) {
+                          insertInvoiceController.onChange(date: value);
+                        }),
+                    InputTextWidget(
+                        label: "Valor",
+                        editingController: moneyTextController,
+                        icon: FontAwesomeIcons.dollarSign,
+                        validator: (_) => insertInvoiceController
+                            .validateValue(moneyTextController.numberValue),
+                        onChanged: (value) {
+                          insertInvoiceController.onChange(
+                              invoiceValue: moneyTextController.numberValue);
+                        }),
+                    InputTextWidget(
+                        label: "Código",
+                        editingController: barcodeInputController,
+                        icon: FontAwesomeIcons.barcode,
+                        validator: insertInvoiceController.validateCode,
+                        onChanged: (value) {
+                          insertInvoiceController.onChange(invoiceBarcode: value);
+                        }),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: ButtonsSetLabel(
@@ -83,7 +109,9 @@ class _InsertInvoiceState extends State<InsertInvoice> {
           },
           secondaryLabel: "Cadastrar",
           enableSecondaryColor: true,
-          secondaryOnTap: () {}),
+          secondaryOnTap: () {
+            insertInvoiceController.fileInvoice();
+          }),
     );
   }
 }
