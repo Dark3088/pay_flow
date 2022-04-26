@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pay_flow/shared/themes/app_colors.dart';
 import 'package:pay_flow/shared/themes/app_text_styles.dart';
+import 'package:pay_flow/shared/widgets/buttons_set/buttons_set_label.dart';
 import 'package:pay_flow/shared/widgets/input_text/input_text_widget.dart';
 
 class InsertInvoice extends StatelessWidget {
@@ -17,25 +18,47 @@ class InsertInvoice extends StatelessWidget {
           color: AppColors.input,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 93, vertical: 24),
-            child: Text("Preencha os dados do Boleto",
-                style: TextStyles.titleBoldHeading,
-                textAlign: TextAlign.center),
-          ),
-          InputTextWidget(
-              label: "Nome do Boleto", icon: FontAwesomeIcons.fileLines),
-          InputTextWidget(
-              label: "Vencimento", icon: FontAwesomeIcons.circleXmark),
-          InputTextWidget(
-              label: "Valor", icon: FontAwesomeIcons.dollarSign),
-          InputTextWidget(
-              label: "Código", icon: FontAwesomeIcons.barcode),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 69),
+              child: Text("Preencha os dados do boleto",
+                  style: TextStyles.titleBoldHeading,
+                  textAlign: TextAlign.center),
+            ),
+            SizedBox(
+              height: 32,
+            ),
+            InputTextWidget(
+                label: "Nome do boleto",
+                icon: FontAwesomeIcons.fileLines,
+                onChanged: (value) {}),
+            InputTextWidget(
+                label: "Vencimento",
+                icon: FontAwesomeIcons.circleXmark,
+                onChanged: (value) {}),
+            InputTextWidget(
+                label: "Valor",
+                icon: FontAwesomeIcons.dollarSign,
+                onChanged: (value) {}),
+            InputTextWidget(
+                label: "Código",
+                icon: FontAwesomeIcons.barcode,
+                onChanged: (value) {}),
+          ],
+        ),
       ),
+      bottomNavigationBar: ButtonsSetLabel(
+          primaryLabel: "Cancelar",
+          primaryOnTap: () {
+            Navigator.pop(context);
+          },
+          secondaryLabel: "Cadastrar",
+          enableSecondaryColor: true,
+          secondaryOnTap: () {}),
     );
   }
 }
