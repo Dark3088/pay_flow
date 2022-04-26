@@ -67,7 +67,9 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                 ),
                 bottomNavigationBar: ButtonsSetLabel(
                   primaryLabel: "Inserir código do boleto",
-                  primaryOnTap: () {},
+                  primaryOnTap: () {
+                    Navigator.pushReplacementNamed(context, "/insert_invoices");
+                  },
                   secondaryLabel: "Adicionar da galeria",
                   secondaryOnTap: () {},
                 )),
@@ -80,9 +82,11 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                   title: "Não foi possível carregar um código de barras.",
                   subTitle: "Tente escanear novamente ou digite o código do seu boleto.",
                   primaryLabel: "Escanear novamente",
-                  primaryOnTap: () {controller.getAvailableCameras();},
+                  primaryOnTap: () {controller.scanWithCamera();},
                   secondaryLabel: "Digitar código",
-                  secondaryOnTap: () {},
+                  secondaryOnTap: () {
+                    Navigator.pushReplacementNamed(context, "/insert_invoices");
+                  },
                 );
               } else {
                 return Container();
@@ -97,13 +101,14 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
   @override
   void initState() {
     // TODO: implement initState
+    super.initState();
     controller.getAvailableCameras();
     controller.statusNotifier.addListener(() {
       if (controller.status.hasBarcode){
         Navigator.pushReplacementNamed(context, "/insert_invoices");
       }
     });
-    super.initState();
+
   }
 
   @override
