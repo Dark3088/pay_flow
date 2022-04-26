@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                    // Navigator.pushNamed(context, "/barcode_scanner");
                     Navigator.pushNamed(context, "/insert_invoices");
-
                   },
                   icon: Icon(Icons.add_box_outlined),
                   color: AppColors.background,
