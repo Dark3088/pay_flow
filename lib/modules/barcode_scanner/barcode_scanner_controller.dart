@@ -15,6 +15,7 @@ class BarcodeScannerController {
   set status(BarcodeScannerStatus status) => statusNotifier.value = status;
 
   final barcodeScanner = GoogleMlKit.vision.barcodeScanner();
+
   CameraController? cameraController;
 
   InputImage? imagePicker;

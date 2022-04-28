@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pay_flow/modules/home/home_controller.dart';
+import 'package:pay_flow/shared/models/invoice_model/invoice_model.dart';
 import 'package:pay_flow/shared/themes/app_colors.dart';
 import 'package:pay_flow/shared/themes/app_text_styles.dart';
+import 'package:pay_flow/shared/widgets/invoice_tile/invoice_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,7 +14,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
-  final pages = [Container(color: Colors.red), Container(color: Colors.blue)];
+  final pages = [
+    Container(
+        
+        child: InvoiceTileWidget(
+          
+          data: InvoiceModel(
+              name: "Diego Rocha",
+              dueDate: "30/05/1988",
+              value: 200,
+              barcode: "asdsasdsaddf"),
+        )),
+
+    Container(color: Colors.blue)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(5)),
                 child: IconButton(
                   onPressed: () {
-                   // Navigator.pushNamed(context, "/barcode_scanner");
+                    // Navigator.pushNamed(context, "/barcode_scanner");
                     Navigator.pushNamed(context, "/insert_invoices");
                   },
                   icon: Icon(Icons.add_box_outlined),

@@ -93,7 +93,8 @@ class _InsertInvoiceState extends State<InsertInvoice> {
                         icon: FontAwesomeIcons.barcode,
                         validator: insertInvoiceController.validateCode,
                         onChanged: (value) {
-                          insertInvoiceController.onChange(invoiceBarcode: value);
+                          insertInvoiceController.onChange(
+                              invoiceBarcode: value);
                         }),
                   ],
                 ),
@@ -109,8 +110,9 @@ class _InsertInvoiceState extends State<InsertInvoice> {
           },
           secondaryLabel: "Cadastrar",
           enableSecondaryColor: true,
-          secondaryOnTap: () {
-            insertInvoiceController.fileInvoice();
+          secondaryOnTap: () async {
+            await insertInvoiceController.fileInvoice();
+            Navigator.pop(context);
           }),
     );
   }
