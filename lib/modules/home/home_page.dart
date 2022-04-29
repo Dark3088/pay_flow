@@ -3,6 +3,7 @@ import 'package:pay_flow/modules/home/home_controller.dart';
 import 'package:pay_flow/shared/models/invoice_model/invoice_model.dart';
 import 'package:pay_flow/shared/themes/app_colors.dart';
 import 'package:pay_flow/shared/themes/app_text_styles.dart';
+import 'package:pay_flow/shared/widgets/invoice_list/invoice_list_widget.dart';
 import 'package:pay_flow/shared/widgets/invoice_tile/invoice_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,17 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
   final pages = [
-    Container(
-        
-        child: InvoiceTileWidget(
-          
-          data: InvoiceModel(
-              name: "Diego Rocha",
-              dueDate: "30/05/1988",
-              value: 200,
-              barcode: "asdsasdsaddf"),
-        )),
-
+    Container(child: InvoiceListWidget()),
     Container(color: Colors.blue)
   ];
 
