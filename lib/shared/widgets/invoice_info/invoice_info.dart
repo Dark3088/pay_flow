@@ -34,7 +34,7 @@ class InvoiceInfoWidget extends StatelessWidget {
               children: [
                 TextSpan(
                   text: "$size boletos \n",
-                  style: TextStyles.captionBackground,
+                  style: TextStyles.captionBoldBackground,
                 ),
                 TextSpan(
                     text: "cadastrados para pagar",
