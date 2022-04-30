@@ -4,19 +4,20 @@ import 'package:pay_flow/shared/widgets/invoice_list/invoice_list_controller.dar
 import 'package:pay_flow/shared/widgets/invoice_tile/invoice_tile.dart';
 
 class InvoiceListWidget extends StatefulWidget {
-  const InvoiceListWidget({Key? key}) : super(key: key);
+
+  final InvoiceListController invoiceListController;
+  const InvoiceListWidget({Key? key, required this.invoiceListController}) : super(key: key);
 
   @override
   State<InvoiceListWidget> createState() => _InvoiceListWidgetState();
 }
 
 class _InvoiceListWidgetState extends State<InvoiceListWidget> {
-  final invoiceListController = InvoiceListController();
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<List<InvoiceModel>>(
-      valueListenable: invoiceListController.invoiceValueNotifier,
+      valueListenable: widget.invoiceListController.invoiceValueNotifier,
       builder: (_, invoices, __) => Column(
           children: invoices.map((e) => InvoiceTileWidget(data: e)).toList()),
     );
