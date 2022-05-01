@@ -46,13 +46,7 @@ dev_dependencies:
   flutter_lints: ^1.0.4
 
 flutter:
-  plugin:
-    platforms:
-      android:
-        package: com.google_mlkit_barcode_scanning
-        pluginClass: GoogleMlKitBarcodeScanningPlugin
-      ios:
-        pluginClass: GoogleMlKitBarcodeScanningPlugin
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_flow/modules/barcode_scanner/barcode_scanner_controller.dart';
 import 'package:pay_flow/modules/barcode_scanner/barcode_scanner_status.dart';
@@ -68,10 +69,12 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                 bottomNavigationBar: ButtonsSetLabel(
                   primaryLabel: "Inserir código do boleto",
                   primaryOnTap: () {
-                    Navigator.pushReplacementNamed(context, "/insert_invoices");
+                    controller.status = BarcodeScannerStatus.error("Error");
                   },
                   secondaryLabel: "Adicionar da galeria",
-                  secondaryOnTap: () {},
+                  secondaryOnTap: () async {
+                    controller.scanWithImagePicker();
+                  },
                 )),
           ),
           ValueListenableBuilder<BarcodeScannerStatus>(
@@ -80,9 +83,12 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
               if (status.hasError) {
                 return BottomSheetWidget(
                   title: "Não foi possível carregar um código de barras.",
-                  subTitle: "Tente escanear novamente ou digite o código do seu boleto.",
+                  subTitle:
+                      "Tente escanear novamente ou digite o código do seu boleto.",
                   primaryLabel: "Escanear novamente",
-                  primaryOnTap: () {controller.scanWithCamera();},
+                  primaryOnTap: () async {
+                    controller.scanWithCamera();
+                  },
                   secondaryLabel: "Digitar código",
                   secondaryOnTap: () {
                     Navigator.pushReplacementNamed(context, "/insert_invoices");
@@ -100,21 +106,20 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
+    
     controller.getAvailableCameras();
     controller.statusNotifier.addListener(() {
-      if (controller.status.hasBarcode){
-        Navigator.pushReplacementNamed(context, "/insert_invoices");
+      if (controller.status.hasBarcode) {
+        Navigator.pushReplacementNamed(context, "/insert_invoices", arguments: controller.status.barcode);
       }
     });
-
+    super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controller.dispose();
+    
     super.dispose();
   }
 }

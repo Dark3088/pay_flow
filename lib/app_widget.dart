@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pay_flow/modules/barcode_scanner/barcode_scanner_page.dart';
 import 'package:pay_flow/modules/home/home_page.dart';
 import 'package:pay_flow/modules/insert_invoices/insert_invoice.dart';
@@ -30,9 +29,8 @@ class AppWidget extends StatelessWidget {
             userModel: ModalRoute.of(context)!.settings.arguments as UserModel),
         "/login": (context) => LoginPage(),
         "/barcode_scanner": (context) => BarCodeScannerPage(),
-        "/insert_invoices": (context) => InsertInvoice(
-              barcode: ModalRoute.of(context)!.settings.arguments as String?,
-            )
+        "/insert_invoices": (context) => InsertInvoice(barcode: 
+        ModalRoute.of(context)!.settings.arguments as String?)
       },
     );
   }

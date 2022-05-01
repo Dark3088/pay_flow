@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +35,7 @@ class BarcodeScannerController {
 
   Future<void> scannerBarCode(InputImage inputImage) async {
     try {
-      final List<Barcode> barcodes =
+      final barcodes =
           await barcodeScanner.processImage(inputImage);
 
       var barcode;
@@ -48,10 +46,10 @@ class BarcodeScannerController {
       if (barcode != null && status.barcode.isEmpty) {
         status = BarcodeScannerStatus.barcode(barcode);
         cameraController!.dispose();
-        await barcodeScanner.close();
+        barcodeScanner.close();
       }
 
-      return;
+       return;
     } catch (e) {
       print("ERRO DA LEITURA $e");
     }
@@ -63,7 +61,7 @@ class BarcodeScannerController {
     scannerBarCode(inputImage);
   }
 
-  void scanWithCamera() {
+  void scanWithCamera() async {
     status = BarcodeScannerStatus.available();
     Future.delayed(Duration(seconds: 20)).then((value) {
       if (status.hasBarcode == false)
