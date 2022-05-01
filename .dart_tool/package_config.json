@@ -2,6 +2,12 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "animated_card",
+      "rootUri": "file:///home/darklord/Documentos/flutter/.pub-cache/hosted/pub.dartlang.org/animated_card-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "async",
       "rootUri": "file:///home/darklord/Documentos/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2",
       "packageUri": "lib/",
@@ -506,7 +512,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-04-27T08:53:16.636081Z",
+  "generated": "2022-05-01T00:39:40.075321Z",
   "generator": "pub",
   "generatorVersion": "2.16.2"
 }

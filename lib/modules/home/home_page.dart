@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pay_flow/modules/home/home_controller.dart';
 import 'package:pay_flow/modules/my_invoices/my_invoices_page.dart';
 import 'package:pay_flow/modules/statements/statements_page.dart';
+import 'package:pay_flow/shared/models/user_model.dart';
 import 'package:pay_flow/shared/themes/app_colors.dart';
 import 'package:pay_flow/shared/themes/app_text_styles.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+
+  final UserModel userModel;
+  const HomePage({Key? key, required this.userModel}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -34,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyles.titleRegular,
                     children: [
                       TextSpan(
-                          text: "Diego!", style: TextStyles.titleBoldBackground)
+                          text: "${widget.userModel.name}", style: TextStyles.titleBoldBackground)
                     ],
                   ),
                 ),
@@ -45,12 +48,13 @@ class _HomePageState extends State<HomePage> {
                   height: 48,
                   decoration: BoxDecoration(
                       color: Colors.black,
-                      borderRadius: BorderRadius.circular(5)),
+                      borderRadius: BorderRadius.circular(5),
+                      image: DecorationImage(image: NetworkImage(widget.userModel.photoURL!))),
                 ),
               ),
             ),
           )),
-      body: pages[controller.currentPage],
+      body: SingleChildScrollView(child: pages[controller.currentPage]),
       bottomNavigationBar: Container(
         height: 90,
         child: Row(
@@ -73,13 +77,13 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(5)),
                 child: IconButton(
                   onPressed: () {
-                    // Navigator.pushNamed(context, "/barcode_scanner");
-                    Navigator.pushNamed(context, "/insert_invoices");
+                    Navigator.pushNamed(context, "/barcode_scanner");
                   },
                   icon: Icon(Icons.add_box_outlined),
                   color: AppColors.background,
                 ),
               ),
+            
             ),
             IconButton(
               onPressed: () {
