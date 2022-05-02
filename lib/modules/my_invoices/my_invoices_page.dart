@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_flow/shared/models/invoice_model/invoice_model.dart';
 import 'package:pay_flow/shared/themes/app_colors.dart';
@@ -32,7 +33,9 @@ class _MyInvoicesPageState extends State<MyInvoicesPage> {
               child: ValueListenableBuilder<List<InvoiceModel>>(
                   valueListenable: invoicelistController.invoiceValueNotifier,
                   builder: (_, invoices, __) =>
-                      InvoiceInfoWidget(size: invoices.length)),
+                      AnimatedCard(
+                        direction: AnimatedCardDirection.top,
+                        child: InvoiceInfoWidget(size: invoices.length))),
             ),
           ],
         ),

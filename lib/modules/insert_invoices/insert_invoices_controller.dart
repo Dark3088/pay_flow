@@ -44,7 +44,7 @@ class InsertInvoicesController {
   Future<void> fileInvoice() async {
     final form = formKey.currentState;
     if (form!.validate()) {
-      return saveInvoice();
+      return await saveInvoice();
     }
   }
 }

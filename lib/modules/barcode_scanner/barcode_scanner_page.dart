@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_flow/modules/barcode_scanner/barcode_scanner_controller.dart';
 import 'package:pay_flow/modules/barcode_scanner/barcode_scanner_status.dart';
@@ -19,14 +18,6 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-/*    return BottomSheetWidget(
-      title: "Não foi possível carregar um código de barras.",
-      subTitle: "Tente escanear novamente ou digite o código do seu boleto.",
-      primaryLabel: "Escanear novamente",
-      primaryOnTap: () {},
-      secondaryLabel: "Digitar código",
-      secondaryOnTap: () {},
-    );*/
     return SafeArea(
       top: true,
       bottom: true,
@@ -39,7 +30,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
             builder: (_, status, __) {
               if (status.showCamera) {
                 return Container(
-                    child: controller.cameraController!.buildPreview());
+                    child: controller.cameraController?.buildPreview());
               } else {
                 return Container();
               }
@@ -69,10 +60,10 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                 bottomNavigationBar: ButtonsSetLabel(
                   primaryLabel: "Inserir código do boleto",
                   primaryOnTap: () {
-                    controller.status = BarcodeScannerStatus.error("Error");
+                    Navigator.pushReplacementNamed(context, "/insert_invoices");
                   },
                   secondaryLabel: "Adicionar da galeria",
-                  secondaryOnTap: () async {
+                  secondaryOnTap: ()  {
                     controller.scanWithImagePicker();
                   },
                 )),
@@ -86,7 +77,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                   subTitle:
                       "Tente escanear novamente ou digite o código do seu boleto.",
                   primaryLabel: "Escanear novamente",
-                  primaryOnTap: () async {
+                  primaryOnTap: () {
                     controller.scanWithCamera();
                   },
                   secondaryLabel: "Digitar código",

@@ -18,14 +18,14 @@ class BarcodeScannerController {
 
   InputImage? imagePicker;
 
-  void getAvailableCameras() async {
+  Future<void> getAvailableCameras() async {
     try {
       final response = await availableCameras();
       final camera = response.firstWhere(
           (element) => element.lensDirection == CameraLensDirection.back);
       cameraController =
           CameraController(camera, ResolutionPreset.max, enableAudio: false);
-      await cameraController!.initialize();
+      await cameraController?.initialize();
       scanWithCamera();
       listenCamera();
     } catch (e) {
@@ -35,21 +35,19 @@ class BarcodeScannerController {
 
   Future<void> scannerBarCode(InputImage inputImage) async {
     try {
-      final barcodes =
-          await barcodeScanner.processImage(inputImage);
+      final barcodes = await barcodeScanner.processImage(inputImage);
 
-      var barcode;
       for (Barcode item in barcodes) {
-        barcode = item.displayValue;
-      }
+        final barcode = item.displayValue;
 
-      if (barcode != null && status.barcode.isEmpty) {
-        status = BarcodeScannerStatus.barcode(barcode);
-        cameraController!.dispose();
-        barcodeScanner.close();
-      }
+        if (barcode != null && status.barcode.isEmpty) {
+          status = BarcodeScannerStatus.barcode(barcode);
+          cameraController!.dispose();
+          barcodeScanner.close();
+        }
 
-       return;
+        return;
+      }
     } catch (e) {
       print("ERRO DA LEITURA $e");
     }
@@ -61,7 +59,7 @@ class BarcodeScannerController {
     scannerBarCode(inputImage);
   }
 
-  void scanWithCamera() async {
+  void scanWithCamera() {
     status = BarcodeScannerStatus.available();
     Future.delayed(Duration(seconds: 20)).then((value) {
       if (status.hasBarcode == false)
@@ -69,9 +67,9 @@ class BarcodeScannerController {
     });
   }
 
-  void listenCamera() {
-    if (cameraController!.value.isStreamingImages == false)
-      cameraController!.startImageStream((cameraImage) async {
+  void listenCamera() async {
+    if (cameraController!.value.isStreamingImages == false) {
+      cameraController!.startImageStream((cameraImage) {
         if (status.stopScanner == false) {
           try {
             final WriteBuffer allBytes = WriteBuffer();
@@ -110,6 +108,7 @@ class BarcodeScannerController {
           }
         }
       });
+    }
   }
 
   void dispose() {

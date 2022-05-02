@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pay_flow/modules/home/home_controller.dart';
 import 'package:pay_flow/modules/my_invoices/my_invoices_page.dart';
@@ -8,7 +7,6 @@ import 'package:pay_flow/shared/themes/app_colors.dart';
 import 'package:pay_flow/shared/themes/app_text_styles.dart';
 
 class HomePage extends StatefulWidget {
-
   final UserModel userModel;
   const HomePage({Key? key, required this.userModel}) : super(key: key);
 
@@ -18,7 +16,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
-  final pages = [MyInvoicesPage(), MyStatetmentsPage()];
+  final pages = [
+    MyInvoicesPage(key: UniqueKey()),
+    MyStatetmentsPage(key: UniqueKey())
+  ];
 
   final colorSelected = [AppColors.primary, AppColors.body];
 
@@ -38,7 +39,8 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyles.titleRegular,
                     children: [
                       TextSpan(
-                          text: "${widget.userModel.name}", style: TextStyles.titleBoldBackground)
+                          text: "${widget.userModel.name}",
+                          style: TextStyles.titleBoldBackground)
                     ],
                   ),
                 ),
@@ -50,7 +52,8 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(5),
-                      image: DecorationImage(image: NetworkImage(widget.userModel.photoURL!))),
+                      image: DecorationImage(
+                          image: NetworkImage(widget.userModel.photoURL!))),
                 ),
               ),
             ),
@@ -63,11 +66,14 @@ class _HomePageState extends State<HomePage> {
           children: [
             IconButton(
               onPressed: () {
-                controller.setPage(0);
-                setState(() {});
+                setState(() {
+                  controller.setPage(0);
+                });
               },
               icon: Icon(Icons.home),
-              color: controller.currentPage == 0 ? AppColors.primary : AppColors.body,
+              color: controller.currentPage == 0
+                  ? AppColors.primary
+                  : AppColors.body,
             ),
             GestureDetector(
               child: Container(
@@ -77,22 +83,25 @@ class _HomePageState extends State<HomePage> {
                     color: AppColors.primary,
                     borderRadius: BorderRadius.circular(5)),
                 child: IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/barcode_scanner");
+                  onPressed: () async {
+                    await Navigator.pushNamed(context, "/barcode_scanner");
+                    setState(() {});
                   },
                   icon: Icon(Icons.add_box_outlined),
                   color: AppColors.background,
                 ),
               ),
-            
             ),
             IconButton(
               onPressed: () {
-                controller.setPage(1);
-                setState(() {});
+                setState(() {
+                  controller.setPage(1);
+                });
               },
               icon: Icon(Icons.description_outlined),
-              color: controller.currentPage == 1 ? AppColors.primary : AppColors.body,
+              color: controller.currentPage == 1
+                  ? AppColors.primary
+                  : AppColors.body,
             )
           ],
         ),

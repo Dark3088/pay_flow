@@ -3,17 +3,17 @@ import 'package:pay_flow/app_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-// void main() {
-//  runApp(AppFirebase());
-// }
-
-void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  runApp(AppFirebase());
+void main() {
+ runApp(AppFirebase());
 }
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   runApp(AppFirebase());
+// }
 
 class AppFirebase extends StatefulWidget {
   @override
